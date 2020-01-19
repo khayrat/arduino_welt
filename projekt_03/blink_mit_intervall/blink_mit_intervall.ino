@@ -24,7 +24,7 @@ void loop() {
 
   // Abfrage des Taster-Status
   tasterStatus = digitalRead(tasterPin);
-  if (tasterStatus == LOW) {
+  if (tasterStatus == HIGH) {
     digitalWrite(ledPinTaster, HIGH);
   } else {
     digitalWrite(ledPinTaster, LOW);
