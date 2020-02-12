@@ -6,18 +6,13 @@ int interval = 2000;    // Intervalzeit (2 Sekunden)
 unsigned long prev;     // Zeit-Variable
 int ledStatus = LOW;    // Statusvariable für die Blink-LED
 int prevTasterStatus = LOW;       // Statusvariable für den Taster
-int ledTasterStatus = LOW;  // Statusvariable für die Taster-LED
+int zaehler = -1;  // Zählervariable
 
 void setup() {
   pinMode(ledPinBlink, OUTPUT);   // Blink-LED-Pin als Ausgang
   pinMode(ledPinTaster, OUTPUT);  // Tast-LED-Pin als Ausgang
   pinMode(tasterPin, INPUT);      // Taster-Pin als Eingang
   prev = millis();                // jetzigen Zeitstempel merken
-
-  Serial.begin(9600);
-  for (int i = 0; i < 7; i++) {
-    Serial.println(i);
-  }
 }
 
 void loop() {
@@ -31,19 +26,22 @@ void loop() {
   // Abfrage des Taster-Status
   tasterStatus = digitalRead(tasterPin);
 
-  if (tasterStatus == HIGH) {
-    // taster pressed
-    if (tasterStatus == prevTasterStatus) {
-      // still pressing - do nothing
-    } else {
-      // taster is pressed first time - toggle led
-      ledTasterStatus = !ledTasterStatus;
-      // mark as pressed
-      prevTasterStatus = HIGH;
+  // Falls aktueller Stasterwert ungleich vorherigem Tasterwert
+  if (tasterStatus != prevTasterStatus) {
+    // Wurde der Taster gedrückt?
+    if (tasterStatus == HIGH) {
+      // Zähler um EINS erhöhen
+      zaehler++;
     }
-  } else {
-    prevTasterStatus = LOW;
   }
   
-  digitalWrite(ledPinTaster, ledTasterStatus);
+  prevTasterStatus = tasterStatus; // spreichern des aktuellen Tastenwertes
+
+  // jeder 1.,3.,5. etc. Tastendruck bringt die LED zum Leuchten
+  // jeder 2.,4.,6. etc. Tastendruck läßt die LED ausgehen
+  if (zaehler % 2 == 0) {
+    digitalWrite(ledPinTaster, HIGH);
+  } else {
+    digitalWrite(ledPinTaster, LOW);
+  }
 }

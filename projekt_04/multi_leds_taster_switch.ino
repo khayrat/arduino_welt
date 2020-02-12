@@ -1,14 +1,14 @@
-int tasterPin = 8;      // Taster-Pin 8
-int tasterStatus;       // Variable zur Aufnahme des Tasterstatus
+int tasterPin = 8;          // Taster-Pin 8
+int tasterStatus;           // Variable zur Aufnahme des Tasterstatus
 int prevTasterStatus = LOW; // Statusvariable für den Taster
-int ledIndex = -1;  // Zählervariable
-int leds[] = {13, 10};
-int MAX_LEDS = 2;
+int ledIndex = -1;          // Zählervariable - selektiert den Eintrag im Array 'leds'
+int ledPins[] = {13, 10};   // Feld mit LED-Pins
+int MAX_LEDS = 2;           // Anzahl der LEDS == Länge(ledPins)
 int ledStatus = HIGH;
 
 void setup() {
   for (int i = 0; i < MAX_LEDS; i++) {
-      pinMode(leds[i], OUTPUT);   // LED-Pin als Ausgang
+      pinMode(ledPins[i], OUTPUT);   // LED-Pin als Ausgang
   }
   pinMode(tasterPin, INPUT);      // Taster-Pin als Eingang
 }
@@ -21,7 +21,7 @@ void loop() {
   if (tasterStatus != prevTasterStatus) {
     // Wurde der Taster gedrückt?
     if (tasterStatus == HIGH) {
-      // Zähler um EINS erhöhen
+      // selektiere nächste LED
       ledIndex++;
     }
   }
