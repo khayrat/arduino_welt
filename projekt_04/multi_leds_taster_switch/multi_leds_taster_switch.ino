@@ -30,7 +30,7 @@ void loop() {
 
   // nur schreiben, wenn ledIndex auf gültigen Eintrag verweist
   if (ledIndex > -1 && ledIndex < MAX_LEDS) {
-    digitalWrite(leds[ledIndex], ledStatus);
+    digitalWrite(ledPins[ledIndex], ledStatus);
   }
 
   // wenn ledIndex das Ende des gültigen Bereichs erreicht
