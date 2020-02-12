@@ -1,4 +1,4 @@
-int ledPinBlink = 13;  // Rote Blink-LED-Pin 13
+int ledPinBlink = 13;   // Rote Blink-LED-Pin 13
 int ledPinTaster = 10;  // Gelbe Taster-LED-Pin 10
 int tasterPin = 8;      // Taster-Pin 8
 int tasterStatus;       // Variable zur Aufnahme des Tasterstatus
